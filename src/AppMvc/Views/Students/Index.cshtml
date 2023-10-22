@@ -1,0 +1,68 @@
+﻿@model IEnumerable<AppMvc.Models.Student>
+
+@{
+    ViewData["Title"] = "Students List";
+}
+
+<h1>Students List</h1>
+
+@if(TempData["Success"] != null || ViewData["Success"]  != null)
+{
+    var message = TempData["Success"] != null ? TempData["Success"] : ViewData["Success"];
+    <div style="padding-top: 15px"></div>
+    <div id="msg_box" class="alert alert-success">
+        <h4 id="returnMessage">@Html.Raw(message)</h4>
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><span class="fa fa-plus"></span> New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avaliation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @item.DateOfBirth.ToString("yyy-MM-dd ")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Avaliation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><span class="fa fa-search"></span></a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info"><span class="fa fa-pencil"></span></a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><span class="fa fa-trash"></span></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
